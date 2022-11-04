@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Rows : #{query.rows} and Columns : #{query.cols}
+  - let rows = Number(query.rows)
+  - let col = Number(query.cols)
+  if !Number.isInteger(rows)
+    p Given rows number is not an integer
+  else if !Number.isInteger(col)
+    p Given column number is not an integer
+  else if rows < 1 || rows > 10
+    p Rows are out of range
+  else if col < 1 || col > 10
+    p Colums are out of range
+  else
+    table#outer
+      - for(let i=0; i<rows; i++) {
+        tr#middle
+          - for(let j=0; j<col; j++) {
+              td= (1 + i + (j * rows)) + '\xa0\xa0'
+          -}
+      -}

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  - let tree_img_names = ["Apple.jpg","banyan.jpg","mango.jpg","neem.jpg","pine.jpg"]
+  - for(let i=0;i<3;i++){
+      - let img = Math.floor(Math.random()*5);
+      - let item = tree_img_names[img];
+      img(src=`/images/${item}` alt=`${item}` style='height:300px; width:300px') 
+  - }
