@@ -2,15 +2,15 @@ extends layout
 
 block content
   h1= title
-  - let results = [{"tree_name":"Apple Tree","size":"45","age":"12"}, {"tree_name":"Mango Tree","size":"49","age":"25"}, {"tree_name":"Neem Tree","size":"67","age":"34"}];
+  - let items = results
   div(class="container-fluid")
     div(class="row")
-      each tree in results
+      each tree in items
         div(class="col-sm-2") #{tree.tree_name} size:#{tree.size} age:#{tree.age}
   <br>
   h5= 'Click on below items to get the price of purchase'
   div(class="container-fluid")
-    each tree,index in results
+    each tree,index in items
       div(class="row", onclick=`buy(${index})`)
         div(class="col-sm-2") <br>Tree #{index}: #{tree.tree_name} size:#{tree.size} age:#{tree.age}
 
