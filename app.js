@@ -4,11 +4,26 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config(); 
+const connectionString =  process.env.MONGO_CON 
+mongoose = require('mongoose'); 
+mongoose.connect(connectionString,  {useNewUrlParser: true, useUnifiedTopology: true}); 
+
+//Get the default connection 
+var db = mongoose.connection; 
+ 
+//Bind connection to error event  
+db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
+db.once("open", function(){ 
+  console.log("Connection to DB succeeded")}); 
+
+var tree = require("./models/tree");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var treesRouter = require('./routes/trees');
 var gridBuildRouter = require('./routes/gridbuild');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -27,6 +42,7 @@ app.use('/users', usersRouter);
 app.use('/trees', treesRouter);
 app.use('/gridBuild', gridBuildRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
 
 
 
@@ -45,5 +61,32 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// We can seed the collection if needed on server start 
+async function recreateDB(){ 
+  // Delete everything 
+  await tree.deleteMany(); 
+ 
+  let instance1 = new tree({tree_name:"Mango Tree",  size:'large', age:25}); 
+  instance1.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("First object saved") 
+  }); 
+
+  let instance2 = new tree({tree_name:"Pine Tree",  size:'large', age:35}); 
+  instance2.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Second object saved") 
+  }); 
+
+  let instance3 = new tree({tree_name:"Apple Tree",  size:'small', age:10}); 
+  instance3.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Third object saved") 
+  }); 
+} 
+ 
+let reseed = true; 
+if (reseed) { recreateDB();} 
 
 module.exports = app;
