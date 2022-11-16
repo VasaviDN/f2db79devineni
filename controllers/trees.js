@@ -51,9 +51,17 @@ exports.tree_create_post = async function(req, res) {
     }   
 }; 
 
-// Handle Tree delete form on DELETE. 
-exports.tree_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Tree delete DELETE ' + req.params.id); 
+// Handle Tree delete on DELETE. 
+exports.tree_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await tree.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
 }; 
  
 // Handle Tree update form on PUT. 
