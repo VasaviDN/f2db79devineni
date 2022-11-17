@@ -1,19 +1,26 @@
 extends layout 
  
 block content 
-  h1= title 
- 
-  form(id='TreeForm', action="/resource/tree", method="POST") 
-    div.form-group 
-        label.treeAttr(for='tree_name') Tree Name 
-        input#tree_name(type='text', name='tree_name') 
-    div.form-group 
-        label.treeAttr(for='size') Tree size 
-        input#size(type='text', name='size') 
-    div.form-group 
-        label.treeAttr(for='age') Tree Age 
-        input#age(type='number', name='age') 
-    input(type="submit") 
+  div(class='container', style='width: 450px; padding:10px;background-color:  #c8ff00; ')
+    h1(style="text-align: center; color: #0542D8; font-weight: bold")= title 
+    br
+    br
+    div(class='container' style="text-align: center; width: 450px;")
+      form(id='TreeForm', action="/resource/tree", method="POST") 
+        div.form-group 
+          label.treeAttr(for='tree_name') Tree Name 
+          div(style='color: #0542D8;')
+            input#tree_name(type='text', name='tree_name') 
+        div.form-group 
+          label.treeAttr(for='size') Tree size 
+          div(style='color: #0542D8;')
+            input#size(type='text', name='size') 
+        div.form-group 
+          label.treeAttr(for='age') Tree Age 
+          div(style='color: #0542D8;')
+            input#age(type='number', name='age')
+        br
+        input(type="submit") 
  
   script. 
     document.forms['TreeForm'].addEventListener('submit', (event) => { 

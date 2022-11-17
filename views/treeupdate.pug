@@ -3,26 +3,29 @@ extends layout
 block content 
   h1= title 
  
-  - let treeid = toShow._id 
-  - let tree_name = toShow.tree_name 
-  - let treesize = toShow.size 
-  - let treeage = toShow.age 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+    - let treeid = toShow._id 
+    - let tree_name = toShow.tree_name 
+    - let treesize = toShow.size 
+    - let treeage = toShow.age 
    
-  div.row(class='mb-2') 
-    div.mr-1 ID is 
-    div #{treeid} 
-  - let actionid = "/resource/trees/" + treeid 
-  form(id='TreeForm', action= actionid, method="PUT") 
-    div.form-group 
+    div.row(class='mb-2') 
+      div.mr-1 ID is 
+      div #{treeid} 
+    - let actionid = "/resource/trees/" + treeid 
+    form(id='TreeForm', action= actionid, method="PUT") 
+      div.form-group 
         label.treeAttr(for='tree_name') Tree Name 
         input#tree_name(type='text', name='tree_name', value= tree_name ) 
-    div.form-group 
+      div.form-group 
         label.treeAttr(for='size') Tree size 
         input#size(type='text', name='size', value= treesize ) 
-    div.form-group 
+      div.form-group 
         label.treeAttr(for='age') Tree age 
         input#age(type='number', name='age', value= treeage ) 
-    input(type="submit") 
+      input(type="submit") 
  
   script. 
     document.forms['TreeForm'].addEventListener('submit', (event) => { 
