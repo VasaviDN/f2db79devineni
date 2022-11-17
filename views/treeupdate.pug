@@ -1,0 +1,43 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let treeid = toShow._id 
+  - let tree_name = toShow.tree_name 
+  - let treesize = toShow.size 
+  - let treeage = toShow.age 
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{treeid} 
+  - let actionid = "/resource/trees/" + treeid 
+  form(id='TreeForm', action= actionid, method="PUT") 
+    div.form-group 
+        label.treeAttr(for='tree_name') Tree Name 
+        input#tree_name(type='text', name='tree_name', value= tree_name ) 
+    div.form-group 
+        label.treeAttr(for='size') Tree size 
+        input#size(type='text', name='size', value= treesize ) 
+    div.form-group 
+        label.treeAttr(for='age') Tree age 
+        input#age(type='number', name='age', value= treeage ) 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['TreeForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.text(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 
