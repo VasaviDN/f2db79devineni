@@ -1,0 +1,21 @@
+extends layout 
+ 
+block content 
+ h1= title 
+ - let treeid = toShow._id 
+ - let tree_name = toShow.tree_name 
+ - let treesize = toShow.size 
+ - let treeage = toShow.age 
+ div 
+  div.row 
+   div(class='treeAttr mr-3') Tree ID is: 
+   div #{treeid} 
+  div.row 
+   div(class='treeAttr mr-3') Tree Name is: 
+   div #{tree_name} 
+  div.row 
+   div(class='treeAttr mr-3') Tree Size is: 
+   div #{treesize} 
+  div.row 
+   div(class='treeAttr mr-3') Tree Age is: 
+   div #{treeage}
