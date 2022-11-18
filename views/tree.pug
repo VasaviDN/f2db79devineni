@@ -3,6 +3,13 @@ extends layout
 block content
   h1= title
   - let items = results
+  div(class="container-fluid") 
+    div(class="row m-1") 
+      each item in items  
+        - let destination = `dispatch(\"/trees/update?id=${item._id}\")`
+        div(class="row-sm-2", class="m-1") Item #{item.tree_name}(#{item.size}) is #{item.age}
+          br
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
   div(class="container-fluid")
     div(class="row")
       each tree in items
@@ -18,3 +25,8 @@ block content
         function buy(price){
           alert('You purchased item ' + price)
         }
+  
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    }
