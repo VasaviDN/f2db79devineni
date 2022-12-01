@@ -37,7 +37,10 @@ block content
       }).then((resp) => { 
         return resp.text(); // or resp.text() or whatever the server sends 
       }).then((body) => { 
-        alert("Update succeded") 
+          if(body.error)
+             alert('Please Enter Valid Details')
+            else
+             alert("Update succeded") 
         // TODO handle body 
       }).catch((error) => { 
         // TODO handle error 

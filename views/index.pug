@@ -1,22 +1,11 @@
 extends layout
-
 block content
-  h1= title
-  p Welcome to Vasavi Devineni's #{title}
-
-  button(type="button", class="btn btn-primary", onclick="doBump()") Press  me
-  div(id = "bump") <br>Bump the count
-  script.
-    let count = 0
-    let bump = 1
-    function doBump(){
-      count += bump;
-      bump += 1;
-      document.getElementById("bump").innerHTML=`<br>Count ${count} with bump ${bump}`;
-    }
-  <br>
-  p Click to open local url:
-    a(href='http://localhost:3000/trees') TreesPage
-  <br> 
-  p Click to open render url:
-    a(href='https://f2wb79devineni.onrender.com/trees') TreesPage
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/trees") Take me to Trees page
+    br
+    a(href="/logout") Logout
